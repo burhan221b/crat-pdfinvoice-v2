@@ -3,7 +3,7 @@ import { FROM, TO, OPEN, DOWNLOAD, PRINT } from '../utils/const';
 import UseTicketForm from '../utils/UseTicketForm';
 import { v4 as uuidv4 } from 'uuid';
 import { handleTotals, validateMath } from '../utils/calculations';
-import { updateDate } from '../events/eventListeners';
+import { deleteRowFadeOut, updateDate } from '../events/eventListeners';
 //Styles
 import '../styles/Ticket.css';
 
@@ -207,9 +207,17 @@ const ItemsList = (props: TicketFormProps) => {
     const addItemInput = () => {
         setState([...state, { ...initialState, id: uuidv4() }])
     }
-    const deleteItemInput = (id: string) => {
-        const newState = state.filter(item => item.id !== id)
-        setState(newState);
+    const deleteItemInput = async (id: string) => {
+        const [item] = state.filter((item: any) => item.id === id)
+        if (item) {
+            // eslint-disable-next-line no-restricted-globals
+            let confirm_deletion = confirm(`Do you want to delete item:\ndescription: ${item.description}`)
+            if (!confirm_deletion) return;
+            const newState = state.filter(item => item.id !== id)
+            await deleteRowFadeOut(id);
+            setState(newState);
+        }
+
     }
     const updateItemInput = (selected_item: any) => {
         const newState = state.map(item => {
@@ -252,7 +260,7 @@ const ItemsInput = (props: ItemsInputProps) => {
         updateItemInput(newState);
     }
 
-    return (<div className="ItemsInput">
+    return (<div className="ItemsInput fade-in" id={state.id}>
         <input onChange={handleChange} value={state.qty} type="number" name="qty" id="" />
         <input onChange={handleChange} value={state.description} type="text" name="description" id="" />
         <input onChange={handleChange} value={state.unitprice} type="number" name="unitprice" id="" />
