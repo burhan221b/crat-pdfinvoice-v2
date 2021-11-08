@@ -4,6 +4,8 @@ import UseTicketForm from '../utils/UseTicketForm';
 import { v4 as uuidv4 } from 'uuid';
 import { handleTotals, validateMath } from '../utils/calculations';
 import { updateDate } from '../events/eventListeners';
+//Styles
+import '../styles/Ticket.css';
 
 interface TicketProps {
     id: string,
@@ -79,7 +81,7 @@ const Ticket = (props: TicketProps) => {
     return (
         <div id={id} className={ticket_type}>
             <main>
-                <TicketHeader {...props} />
+                {/* <TicketHeader {...props} /> */}
                 <TicketForm {...props} />
             </main>
         </div>
@@ -98,6 +100,9 @@ const TicketForm = (props: TicketProps) => {
     const { id, prefill } = props;
     const { state, handleChangeFormInput, handleChangeItems, handleUseEffectChange, handleSubmit } = UseTicketForm({ id, ...prefill })
     return (<section className="TicketForm">
+        <fieldset >
+            <TicketHeader {...props} />
+        </fieldset>
         <form>
             <fieldset className="DateInput-container">
                 <DateInput {...state} handleUseEffectChange={handleUseEffectChange} handleChangeFormInput={handleChangeFormInput} />
@@ -148,7 +153,7 @@ const InfoInput = (props: InfoInputProps) => {
     const address = propsObject[`${indicator}_address`];
 
     return (<div className="InfoInput">
-        <header className="InfoInput-header"><h5>{indicator}</h5></header>
+        <header className="InfoInput-header"><h4><strong>{indicator}</strong></h4></header>
         <div>
             <label htmlFor={`${indicator}_name`}>Name/Company</label>
             <input type="text" name={`${indicator}_name`} id={`${indicator}_name`} className={`${indicator}_name`} onChange={handleChangeFormInput} value={name} />
@@ -228,8 +233,11 @@ const ItemsList = (props: TicketFormProps) => {
     return (<>
         {getItemInput()}
         {/* {setTotal()} */}
-        <ItemsTotals AMOUNT={Totals.AMOUNT} TAX={Totals.TAX} TOTAL={Totals.TOTAL} />
-        <button type="button" onClick={addItemInput}>Add</button>
+        <div className="item-results">
+            <button type="button" onClick={addItemInput} className="btn add-item">&#10010;</button>
+            <ItemsTotals AMOUNT={Totals.AMOUNT} TAX={Totals.TAX} TOTAL={Totals.TOTAL} />
+        </div>
+
     </>);
 }
 
@@ -250,7 +258,7 @@ const ItemsInput = (props: ItemsInputProps) => {
         <input onChange={handleChange} value={state.unitprice} type="number" name="unitprice" id="" />
         <input onChange={handleChange} value={state.tax} type="number" name="tax" id="" />
         <input onChange={handleChange} value={state.amount} type="number" name="amount" id="" />
-        <button type="button" className="delete-button" onClick={() => deleteItemInput(state.id)}>X</button>
+        <button type="button" className="btn delete-button delete-item" onClick={() => deleteItemInput(state.id)}>X</button>
     </div>);
 }
 
@@ -275,7 +283,8 @@ const ItemsTotals = (props: ItemsTotalsProps) => {
 const NotesInput = (props: TicketFormProps) => {
     const { handleChangeFormInput } = props;
     return (<div className="NotesInput">
-        <label htmlFor={`notes`}>Notes</label>
+        {/* <label htmlFor={`notes`}>Notes</label> */}
+        <header className="NotesInput-header"><h4><strong>NOTES</strong></h4></header>
         <textarea onChange={handleChangeFormInput} name="notes" value={props.notes} id="notes" cols={30} rows={10} />
     </div>);
 }
@@ -283,9 +292,9 @@ const NotesInput = (props: TicketFormProps) => {
 const SubmitButtons = (props: TicketFormProps) => {
     const { handleSubmit } = props;
     return (<div className="SubmitButtons">
-        <button type="button" onClick={(e) => handleSubmit(e, props, OPEN)} className="submit-btn" id="btn-open">Open New Tab</button>
-        <button type="button" onClick={(e) => handleSubmit(e, props, DOWNLOAD)} className="submit-btn" id="btn-download">Download</button>
-        <button type="button" onClick={(e) => handleSubmit(e, props, PRINT)} className="submit-btn" id="btn-print">Print</button>
+        <button type="button" onClick={(e) => handleSubmit(e, props, OPEN)} className="btn submit-btn" id="btn-open">Open New Tab</button>
+        <button type="button" onClick={(e) => handleSubmit(e, props, DOWNLOAD)} className="btn submit-btn" id="btn-download">Download</button>
+        <button type="button" onClick={(e) => handleSubmit(e, props, PRINT)} className="btn submit-btn" id="btn-print">Print</button>
     </div>)
 }
 export default Ticket

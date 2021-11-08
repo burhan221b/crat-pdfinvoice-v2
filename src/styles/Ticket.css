@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;700&display=swap");
+body {
+    font-family: "Ubuntu", sans-serif;
+}
+
+section.TicketHeader {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+fieldset {
+    border: transparent;
+}
+
+div.DateInput {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.InfoInput,
+.ItemsTable,
+.NotesInput {
+    margin: 1rem 0 1rem 0;
+    padding: 1rem;
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.2);
+}
+
+.InfoInput div {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 1rem 0 0 0;
+}
+
+.InfoInput-header,
+.NotesInput-header {
+    color: #274ae5;
+}
+
+.InfoInput input {
+    border: 3px solid rgba(0, 0, 0, 0.2);
+}
+
+.table-header-container,
+.ItemsInput {
+    display: flex;
+    width: 100%;
+}
+.table-header {
+    width: 100%;
+    font-weight: bold;
+}
+
+.ItemsInput {
+    margin: 1rem 0 1rem 0;
+    gap: 0.2rem;
+}
+
+.ItemsInput input {
+    width: 100%;
+}
+
+.item-results {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.ItemsTotals div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.ItemsTotals div h5 {
+    font-weight: bold;
+}
+
+.NotesInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.SubmitButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Buttons */
+.btn {
+    border: transparent;
+    border-radius: 3px;
+    padding: 0.3rem;
+    color: #000;
+    font-weight: normal;
+}
+.add-item {
+    background-color: rgb(120 195 8);
+    max-height: 2rem;
+    width: 2rem;
+}
+
+.delete-item {
+    background-color: rgb(251 91 91);
+    width: 25px;
+    font-weight: bold;
+}
+
+.submit-btn {
+    background-color: #274ae5;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 1px;
+    min-width: 80px;
+}
